@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import img from './mee.jpeg';
 import './App.css';
 
 function App() {
@@ -161,7 +162,7 @@ function App() {
             <div className="profile-image-container">
               <div className="profile-image-border">
                 <img 
-                  src="/1650088487172 (4).jpeg" 
+                  src={img}
                   alt="Pranav Srinivasan - Medieval Website Creator" 
                   className="profile-image"
                 />
