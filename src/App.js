@@ -91,11 +91,11 @@ function App() {
         <>
           <span className="timeline-event-title">Software Engineer</span>
           <br />
-          • Built a virtual Teaching Assistant using Retrieval Augmented Generation (RAG) with LangChain, FAISS vector database, and Parent Document Retrieval
+          • Built a virtual Teaching Assistant using Retrieval Augmented Generation (RAG) with LangChain and Pinecone, with Parent Document Retrieval for context augmentation
           <br />
-          • Implemented and prompt-tuned Letta agent for homework help functionality; automated promotional content pipeline using Wan2.1 video generator, OAuth, and GCP
+          • Implemented and prompt-tuned Letta agent for homework help functionality; automated promotional content pipeline using Wan2.1 video generator, OAuth, and GCP and published 40+ reels across platforms
           <br />
-          • Created document and video transcription pipeline with secure S3 storage and DynamoDB indexing
+          • Created pdf transcription pipeline with S3 store and DynamoDB indexing, reducing storage costs 15%
         </>
       ),
       icon: "🤖"
@@ -111,7 +111,9 @@ function App() {
           <br />
           • Modeled an automated ordered Probit regression for predicting insurance claim valuations using Django, mySQL, and Apache Airflow, reducing RMSE by 23% compared to prior models
           <br />
-          • Developed YAML script to automate AWS verification and environment configuration for CI/CD pipeline deployments and accelerated company-wide code deployment by 20%
+          • Built YAML pipeline to automate AWS and environment configs and designed CI/CD smoke test framework
+          <br />
+          • Implemented Redis session storage to manage user auth tokens and reduced retrieval latency 60%
         </>
       ),
       icon: "💼"
@@ -127,7 +129,7 @@ function App() {
           <br />
           • Added N-grams and TF-IDF vectorization to improve accuracy of financial document classification pipeline and yielded a 12% net increase across all models
           <br />
-          • Designed and produced a ChatGPT-based prompt-chaining system for language data augmentation
+          • Implemented a multi-stage inference pipeline leveraging DistilBERT to perform named entity recognition
         </>
       ),
       icon: "🚗"
