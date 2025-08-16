@@ -1,38 +1,77 @@
 import React, { useState, useEffect } from 'react';
-import img from './mee.jpeg';
+import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
 import './App.css';
 
 function App() {
-  const [currentTime, setCurrentTime] = useState(new Date());
+  return (
+    <BrowserRouter>
+      <div className="App">
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/experience" element={<Experience />} />
+          <Route path="/projects" element={<Projects />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
+  );
+}
 
+function Navbar() {
+  const location = useLocation();
+  
+  return (
+    <nav className="navbar">
+      <div className="nav-container">
+        <Link to="/" className="nav-logo">
+          Pranav Srinivasan
+        </Link>
+        <div className="nav-menu">
+          <Link to="/" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}>
+            Home
+          </Link>
+          <Link to="/experience" className={`nav-link ${location.pathname === '/experience' ? 'active' : ''}`}>
+            Experience
+          </Link>
+          <Link to="/projects" className={`nav-link ${location.pathname === '/projects' ? 'active' : ''}`}>
+            Projects
+          </Link>
+        </div>
+      </div>
+    </nav>
+  );
+}
+
+function Home() {
+  const [displayText, setDisplayText] = useState("");
+  const [showCursor, setShowCursor] = useState(true);
+  const fullText = "I make stuff";
+  
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
-
-  const formatMedievalTime = (date) => {
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-    const seconds = date.getSeconds();
+    let currentIndex = 0;
+    const typingSpeed = 150; // milliseconds per character
     
-    const period = hours >= 12 ? 'PM' : 'AM';
-    const medievalHours = hours > 12 ? hours - 12 : hours === 0 ? 12 : hours;
-    
-    return `${medievalHours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')} ${period}`;
-  };
-
-  const formatMedievalDate = (date) => {
-    const options = { 
-      weekday: 'long', 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
+    const typeWriter = () => {
+      if (currentIndex < fullText.length) {
+        setDisplayText(fullText.slice(0, currentIndex + 1));
+        currentIndex++;
+        setTimeout(typeWriter, typingSpeed);
+      }
     };
-    return date.toLocaleDateString('en-US', options);
-  };
+    
+    // Start typing after a small delay
+    const startDelay = setTimeout(typeWriter, 500);
+    
+    // Cursor blinking
+    const cursorInterval = setInterval(() => {
+      setShowCursor(prev => !prev);
+    }, 500);
+    
+    return () => {
+      clearTimeout(startDelay);
+      clearInterval(cursorInterval);
+    };
+  }, []);
 
   const WeatheredSword = () => (
     <svg width="40" height="40" viewBox="0 0 40 40" className="weathered-sword">
@@ -156,64 +195,58 @@ function App() {
     <div className="App">
       <div className="container">
         <div className="content">
-          <div className="coat-of-arms">
-            <div className="shield">⚔️</div>
+          <div className="header-section">
+            <h1 className="main-title">Pranav Srinivasan</h1>
+            <p className="main-subtitle">Builder and Engineer</p>
           </div>
           
-          <div className="profile-section">
-            <div className="profile-image-container">
-              <div className="profile-image-border">
-                <img 
-                  src={img}
-                  alt="Pranav Srinivasan - Medieval Website Creator" 
-                  className="profile-image"
-                />
+          <div className="maker-display">
+            <div className="terminal-body">
+              <div className="terminal-prompt">$ </div>
+              <div className="maker-text">
+                {displayText}
+                <span className={`terminal-cursor ${showCursor ? 'visible' : ''}`}>|</span>
               </div>
-              <div className="profile-title">Pranav Srinivasan</div>
-              <div className="profile-subtitle">Digital Scribe & Code Artisan</div>
             </div>
-          </div>
-          
-          <h1 className="title">Hark! Greetings, Fair Traveler!</h1>
-          <p className="subtitle">Welcome to mine humble digital realm</p>
-          
-          <div className="time-display">
-            <div className="time-label">⏰ The Hour Doth Strike:</div>
-            <div className="time-value">{formatMedievalTime(currentTime)}</div>
-            <div className="date-value">{formatMedievalDate(currentTime)}</div>
           </div>
           
           <div className="features">
             <div className="feature">
               <span className="feature-icon">
-                <WeatheredSword />
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" className="feature-svg">
+                  <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z" fill="#0077FF"/>
+                  <path d="M19 15L19.74 17.74L22.5 18.5L19.74 19.26L19 22L18.26 19.26L15.5 18.5L18.26 17.74L19 15Z" fill="#0077FF"/>
+                  <path d="M5 6L5.47 7.76L7.24 8.24L5.47 8.71L5 10.47L4.53 8.71L2.76 8.24L4.53 7.76L5 6Z" fill="#0077FF"/>
+                </svg>
               </span>
               <span>Leader</span>
             </div>
             <div className="feature">
-              <span className="feature-icon">🏰</span>
+              <span className="feature-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" className="feature-svg">
+                  <path d="M9.663 17h4.673L12 3 9.663 17zM12 20.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" fill="#0077FF"/>
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill="#0077FF"/>
+                </svg>
+              </span>
               <span>Ideator</span>
             </div>
             <div className="feature">
-              <span className="feature-icon">📜</span>
+              <span className="feature-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" className="feature-svg">
+                  <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" fill="#0077FF"/>
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill="#0077FF"/>
+                </svg>
+              </span>
               <span>Executor</span>
             </div>
           </div>
           
-          <div className="timeline-section">
-            <h2 className="timeline-title">Chronicles of Achievement</h2>
-            <p className="timeline-subtitle">A journey through time and accomplishment</p>
-            <div className="timeline">
-              {timelineEvents.map((event, index) => (
-                <div key={index} className={`timeline-item ${index % 2 === 0 ? 'left' : 'right'}`}>
-                  <div className="timeline-content">
-                    <div className="timeline-icon">{event.icon}</div>
-                    <div className="timeline-year">{event.year}</div>
-                    <h3 className="timeline-event-title">{event.title}</h3>
-                    <div className="timeline-description">{event.description}</div>
-                  </div>
-                </div>
-              ))}
+          <div className="about-section">
+            <h2 className="about-title">About Me</h2>
+            <div className="about-content">
+              <p>
+                I'm a 21 year old computer science graduate from the University of Texas at Austin who is passionate about building services at the intersection of cloud and AI technologies. I've built semantic noise filters at Toyota, conducted at Generative AI research at UT, and am currently building at an NSF-funded EdTech startup that's leveraging LLMs to revolutionize how college students learn. Outside of computer science, I enjoy playing basketball, watching old movies, and listening to rock music.
+              </p>
             </div>
           </div>
 
@@ -255,9 +288,200 @@ function App() {
             </a>
           </div>
 
-          <div className="medieval-quote">
-            <p>"In the realm of code, where logic doth reign,</p>
-            <p>We craft our dreams with joy and pain."</p>
+
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Experience() {
+  const timelineEvents = [
+    {
+      year: "Dec 2024 - Current",
+      title: "Encando.AI (NSF & TAMU backed)",
+      icon: "🚀",
+      description: (
+        <>
+          • Built a virtual Teaching Assistant using Retrieval Augmented Generation (RAG) with LangChain, FAISS vector database, and Parent Document Retrieval<br/><br/>
+          • Implemented and prompt-tuned Letta agent for homework help functionality; automated promotional content pipeline using Wan2.1 video generator, OAuth, and GCP<br/><br/>
+          • Created document and video transcription pipeline with secure S3 storage and DynamoDB indexing
+        </>
+      )
+    },
+    {
+      year: "Mar 2024 - Aug 2024",
+      title: "IAM Economics",
+      icon: "💼",
+      description: (
+        <>
+          • Created interactive web application for legal service suite with Next.js, React, and custom RESTful APIs<br/><br/>
+          • Modeled an automated ordered Probit regression for predicting insurance claim valuations using Django, mySQL, and Apache Airflow, reducing RMSE by 23% compared to prior models<br/><br/>
+          • Developed YAML script to automate AWS verification and environment configuration for CI/CD pipeline deployments and accelerated company-wide code deployment by 20%
+        </>
+      )
+    },
+    {
+      year: "May 2023 - Aug 2023",
+      title: "Toyota",
+      icon: "🏎️",
+      description: (
+        <>
+          • Designed and implemented an automatic filter integrating ASR, uMAP dimensionality reduction and Mahalanobis distance to remove noise to vehicle voice assistant and improved performance by 18%<br/><br/>
+          • Added N-grams and TF-IDF vectorization to improve accuracy of financial document classification pipeline and yielded a 12% net increase across all models<br/><br/>
+          • Designed and produced a ChatGPT-based prompt-chaining system for language data augmentation
+        </>
+      )
+    },
+    {
+      year: "Jun 2022 - Aug 2022",
+      title: "Kershner Trading Group",
+      icon: "📈",
+      description: (
+        <>
+          • Implemented 10+ execution algorithms for imbalances and 5 different gap-trade price alerts using CloudQuant backtesting and yielded $9,500 over 8 weeks<br/><br/>
+          • Engineered a Random-Forest regression with bagging and boosting in PyTorch to forecast mid-cap equities and achieved 17% return on real assets<br/><br/>
+          • Developed a Gaussian Mixture Model for volume signals to predict moves in index funds with 89% accuracy
+        </>
+      )
+    }
+  ];
+
+  return (
+    <div className="App">
+      <div className="container">
+        <div className="content">
+          <h1 className="title">Professional Experience</h1>
+          
+          <div className="timeline-section">
+            <h2 className="timeline-title">Work History</h2>
+            <p className="timeline-subtitle">A timeline of my professional growth</p>
+            <div className="timeline">
+              {timelineEvents.map((event, index) => (
+                <div key={index} className={`timeline-item ${index % 2 === 0 ? 'left' : 'right'}`}>
+                  <div className="timeline-content">
+                    <div className="timeline-icon">{event.icon}</div>
+                    <div className="timeline-year">{event.year}</div>
+                    <h3 className="timeline-event-title">{event.title}</h3>
+                    <div className="timeline-description">{event.description}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          <div className="resume-section">
+            <a href="https://drive.google.com/file/d/1V0SygO8FGLieLPh2eOlCET9O5focN_Oz/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="resume-button">
+              My Resume
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Projects() {
+  const projectsData = [
+    {
+      title: "KubeSim",
+      technologies: "Docker, Kubernetes, Helm, Prometheus, Fluentd",
+      icon: "",
+      url: "https://github.com/pranavSrini/KubernetesSims",
+      description: (
+        <>
+          Designed and deployed a cloud-native personal finance tracker as a multi-service Kubernetes application, with UI, API gateway, budgeting, analytics, and notification services<br/><br/>
+        </>
+      ),
+      techLogos: [
+        { name: "Docker", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
+        { name: "Kubernetes", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" },
+        { name: "Helm", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/helm/helm-original.svg" },
+        { name: "Prometheus", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prometheus/prometheus-original.svg" }
+      ]
+    },
+    {
+      title: "GeoGAN",
+      technologies: "PyTorch, OpenCV, Scikit-Learn",
+      icon: "",
+      url: "https://deepnote.com/workspace/Pranav-Srinivasan-65105231-1d54-4355-a58f-4e7b4b5b7d02/project/GAN-Rock-Image-Reconstruction-0f95b2c8-4aca-4c96-bd6d-412f443db968/notebook/d5393806433848a0b48aef14f71b8e52",
+      description: (
+        <>
+          Developed a Deep Convolutional Generative Adversarial Network(DCGAN) for reconstructing images of rock facies under Professor Jose Meijia<br/><br/>
+        </>
+      ),
+      techLogos: [
+        { name: "PyTorch", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" },
+        { name: "OpenCV", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencv/opencv-original.svg" },
+        { name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" }
+      ]
+    },
+    {
+      title: "Mula-Fi",
+      technologies: "React, PostgreSQL, Flask, Swift, Firebase",
+      icon: "",
+      url: "https://github.com/pranavSrini/Mula-Fi",
+      description: (
+        <>
+          Created a finance learning tool with infographics and portfolio simulations; Designed and maintained relational schemas in PostgreSQL<br/><br/>
+        </>
+      ),
+      techLogos: [
+        { name: "React", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+        { name: "PostgreSQL", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
+        { name: "Flask", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg" },
+        { name: "Swift", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/swift/swift-original.svg" },
+        { name: "Firebase", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" }
+      ]
+    },
+    {
+      title: "C1",
+      technologies: "Linux, TCP Networking, TLS/SSL",
+      icon: "",
+      url: "#",
+      description: (
+        <>
+          Engineered a Python backdoor that leveraged TLS certificates, systemd manipulation, and symbolic links to obfuscate and persist in Linux systems<br/><br/>
+        </>
+      ),
+      techLogos: [
+        { name: "Linux", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" },
+        { name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+        { name: "SSL", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ssl/ssl-original.svg" }
+      ]
+    }
+  ];
+
+  return (
+    <div className="App">
+      <div className="container">
+        <div className="content">
+          <h1 className="title">Projects</h1>
+          
+          <div className="projects-section">
+            <div className="projects-grid">
+              {projectsData.map((project, index) => (
+                                      <a key={index} href={project.url} target="_blank" rel="noopener noreferrer" className="project-link">
+                        <div className="project-card">
+                          <div className="jagged-dots-left"></div>
+                          <div className="jagged-dots-right"></div>
+                          <div className="jagged-dots-top"></div>
+                          <div className="jagged-dots-bottom"></div>
+                          <div className="project-icon">{project.icon}</div>
+                          <h3 className="project-title">{project.title}</h3>
+                          <div className="project-technologies">{project.technologies}</div>
+                          <div className="project-description">{project.description}</div>
+                          <div className="tech-logos">
+                            {project.techLogos && project.techLogos.map((tech, techIndex) => (
+                              <div key={techIndex} className="tech-logo">
+                                <img src={tech.logo} alt={tech.name} title={tech.name} />
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </a>
+              ))}
+            </div>
           </div>
         </div>
       </div>
