@@ -4,7 +4,7 @@ import './App.css';
 
 function App() {
   return (
-    <BrowserRouter basename="/Personal-Website">
+    <BrowserRouter>
       <div className="App">
         <Navbar />
         <Routes>
