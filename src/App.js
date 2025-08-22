@@ -246,7 +246,7 @@ function Home() {
             <h2 className="about-title">About Me</h2>
             <div className="about-content">
               <p>
-                I'm a 21 year old computer science graduate from the University of Texas at Austin who is passionate about building services at the intersection of cloud and AI technologies. I've built semantic noise filters at Toyota, conducted at Generative AI research at UT, and am currently building at an NSF-funded EdTech startup that's leveraging LLMs to revolutionize how college students learn. Outside of computer science, I enjoy playing basketball, watching old movies, and listening to rock music.
+                I'm a computer science graduate from the University of Texas at Austin who is passionate about building services at the intersection of cloud and AI technologies. I've built semantic noise filters at Toyota, conducted at Generative AI research at UT, and am currently building at an NSF-funded EdTech startup that's leveraging LLMs to revolutionize how college students learn. Outside of computer science, I enjoy playing basketball, watching old movies, and listening to rock music.
               </p>
             </div>
           </div>
@@ -279,7 +279,7 @@ function Home() {
               <span className="social-label">Medium</span>
             </a>
             
-            <a href="mailto:pranavs389@gmail.com" className="social-link">
+            <a href="mailto:pranavsrinivasan12@gmail.com" className="social-link">
               <div className="social-icon gmail">
                 <svg className="social-svg" viewBox="0 0 24 24">
                   <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-.904.732-1.636 1.636-1.636h.727L12 10.875l9.637-7.054h.727c.904 0 1.636.732 1.636 1.636z"/>
