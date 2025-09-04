@@ -11,6 +11,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/experience" element={<Experience />} />
           <Route path="/projects" element={<Projects />} />
+          <Route path="/blogs" element={<Blogs />} />
           <Route path="*" element={<Home />} />
         </Routes>
       </div>
@@ -36,6 +37,9 @@ function Navbar() {
           </Link>
           <Link to="/projects" className={`nav-link ${location.pathname === '/projects' ? 'active' : ''}`}>
             Projects
+          </Link>
+          <Link to="/blogs" className={`nav-link ${location.pathname === '/blogs' ? 'active' : ''}`}>
+            Blogs
           </Link>
         </div>
       </div>
@@ -482,6 +486,44 @@ function Projects() {
                         </div>
                       </a>
               ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Blogs() {
+  const blogPreview = {
+    title: "An intro to Pulumi: the coolest IaC solution for SaaS",
+    author: "Pranav Srinivasan",
+    excerpt: "When I first heard about Pulumi, I thought it was a vegetable. When I found out it was actually an Infrastructure-as-Code tool developed by ex-Microsoft employees in 2017, it's safe to say I was intrigued. I had heard of Terraform, probably the most popular Infrastructure-as-Code. Or as I like to think of it, YAML for provisioning. But let me first start by explaining what Infrastructure as Code really is. When you have a large application, there are always some required components: storage(databases), communication(networks), compute and scale(cloud), etc — and these make up the \"infrastructure\" of a system...",
+    url: "YOUR_MEDIUM_LINK_HERE", // You'll need to provide this
+    date: "09/4/2025"
+  };
+
+  return (
+    <div className="App">
+      <div className="container">
+        <div className="content">
+          <h1 className="title">Blogs</h1>
+          
+          <div className="blogs-section">
+            <div className="blog-preview-card">
+              <a href={blogPreview.url} target="_blank" rel="noopener noreferrer" className="blog-link">
+                <div className="blog-content">
+                  <div className="blog-meta">
+                    <span className="blog-author">By {blogPreview.author}</span>
+                    <span className="blog-date">{blogPreview.date}</span>
+                  </div>
+                  <h2 className="blog-title">{blogPreview.title}</h2>
+                  <p className="blog-excerpt">{blogPreview.excerpt}</p>
+                  <div className="blog-read-more">
+                    Read full article on Medium →
+                  </div>
+                </div>
+              </a>
             </div>
           </div>
         </div>
