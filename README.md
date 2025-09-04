@@ -4,7 +4,7 @@ A modern, minimalist portfolio website showcasing my professional experience, pr
 
 ## 🌐 Live Site
 
-Visit: [pranavsrinivasan.com)]
+Visit: [pranavsrinivasan.com]
 
 ## ✨ Features
 
