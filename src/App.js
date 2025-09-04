@@ -499,7 +499,7 @@ function Blogs() {
     title: "An intro to Pulumi: the coolest IaC solution for SaaS",
     author: "Pranav Srinivasan",
     excerpt: "When I first heard about Pulumi, I thought it was a vegetable. When I found out it was actually an Infrastructure-as-Code tool developed by ex-Microsoft employees in 2017, it's safe to say I was intrigued. I had heard of Terraform, probably the most popular Infrastructure-as-Code. Or as I like to think of it, YAML for provisioning. But let me first start by explaining what Infrastructure as Code really is. When you have a large application, there are always some required components: storage(databases), communication(networks), compute and scale(cloud), etc — and these make up the \"infrastructure\" of a system...",
-    url: "YOUR_MEDIUM_LINK_HERE", // You'll need to provide this
+    url: "https://medium.com/@pranavs389/pulumi-for-beginners-ed0820a11c29",
     date: "09/4/2025"
   };
 
